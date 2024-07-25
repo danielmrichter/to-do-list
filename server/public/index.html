@@ -12,6 +12,19 @@
   <header>
     <h1>SQL TO-DO List</h1>
   </header>
+  <form onSubmit="postToDoForm(event)">
+    <label for="toDoFormText">Add a To-Do Item!</label>
+    <input type="text" id="toDoFormText" placeholder="To-Do Item">
+    <button>Submit</button>
+  </form>
+  <table>
+    <thead>
+      <th>Item to do:</th>
+      <th>Completed Status:</th>
+    </thead>
+    <tbody id="toDoListTable">
 
+    </tbody>
+  </table>
 </body>
 </html>
