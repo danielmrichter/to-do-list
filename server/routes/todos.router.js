@@ -27,7 +27,6 @@ router.post(`/`, (req, res) =>{
     res.sendStatus(500)
   })
 })
-
 router.patch(`/`, (req, res) => {
   const sqlText = `UPDATE "todos"
 	  SET "isComplete" = $1
@@ -47,5 +46,16 @@ router.patch(`/`, (req, res) => {
       res.sendStatus(500)
     })
 })
-
+router.delete(`/:itemId`, (req, res) =>{
+  const sqlText = `DELETE FROM "todos"
+	WHERE "id" = $1;`
+  const sqlValues = [req.params.itemId]
+  pool.query(sqlText, sqlValues)
+  .then((dbResponse) =>{
+    res.sendStatus(200)
+  }).catch((dbErr) => {
+    console.log(`Woops. Got a SQL Error in DELETE/todos:`, error)
+    res.sendStatus(500)
+  })
+})
 module.exports = router;

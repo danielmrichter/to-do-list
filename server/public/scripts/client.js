@@ -4,33 +4,34 @@ function onReady() {
 }
 //make a get route
 function getItemsToDo() {
-    console.log(`in getItemsToDo! Let's get some items!`)
+    // console.log(`in getItemsToDo! Let's get some items!`)
     axios({
         method: `GET`,
         url: `/todos`
     }).then((response) => {
-        console.log(`Got something back in my GET /todos!`, response)
+        // console.log(`Got something back in my GET /todos!`, response)
         document.getElementById(`toDoListTable`).innerHTML = ``
         for (let item of response.data) {
             if(item.isComplete){
             document.getElementById(`toDoListTable`).innerHTML += `
             <td data-testid="toDoItem">${item.text}</td>
-            <td onClick="toggleCompleted('complete', ${item.id})" class="completed">Completed!</td>`
+            <td onClick="toggleCompleted('complete', ${item.id})" class="completed">Completed!</td>
+            <td><button onClick="deleteItemToDo(${item.id})">Delete</button></td>`
         } else{
             document.getElementById(`toDoListTable`).innerHTML += `
             <td data-testid="toDoItem">${item.text}</td>
-            <td onClick="toggleCompleted('incomplete', ${item.id})"class="incomplete">Incomplete</td>`
+            <td onClick="toggleCompleted('incomplete', ${item.id})"class="incomplete">Incomplete</td>
+            <td><button onClick="deleteItemToDo(${item.id})">Delete</button></td>`
         }
         }
     }).catch((error) => {
         console.log(`Oopsie Woopsie! Error in GET route!`, error)
     })
 }
-
 //make a post route
 function postToDoForm(e) {
     e.preventDefault()
-    console.log(`postToDoForm recieved a request!`)
+    // console.log(`postToDoForm recieved a request!`)
     let itemToPost = document.getElementById(`toDoFormText`).value
     axios({
         method: `POST`,
@@ -46,7 +47,7 @@ function postToDoForm(e) {
 }
 //make a patch route
 function toggleCompleted(status, itemId){
-    console.log(`ToggleCompleted recieved a request!`, status, itemId)
+    // console.log(`ToggleCompleted recieved a request!`, status, itemId)
     axios({
         method: 'PATCH',
         url: `/todos`,
@@ -59,7 +60,17 @@ function toggleCompleted(status, itemId){
     })
 }
 //make a delete route
-
+function deleteItemToDo(itemId){
+    // console.log(`Deleting item ${itemId}!`)
+    axios({
+        method: `DELETE`,
+        url: `/todos/${itemId}`,
+    }).then((response) =>{
+        getItemsToDo()
+    }).catch((error) =>{
+        console.log(`You dun goofed now A-ARON. Error in POST/todos:`, error)
+    })
+}
 
 
 onReady()
