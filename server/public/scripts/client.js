@@ -14,14 +14,18 @@ function getItemsToDo() {
         for (let item of response.data) {
             if(item.isComplete){
             document.getElementById(`toDoListTable`).innerHTML += `
-            <td data-testid="toDoItem">${item.text}</td>
-            <td onClick="toggleCompleted('complete', ${item.id})" class="completed">Completed!</td>
-            <td><button onClick="deleteItemToDo(${item.id})">Delete</button></td>`
+            <tr data-testid="toDoItem" class="completed">
+            <td>${item.text}
+            <button data-testid="completeButton" onClick="toggleCompleted('complete', ${item.id})">Completed!</button>
+            <button data-testid="deleteButton" onClick="deleteItemToDo(${item.id})">Delete</button></td>
+            </tr>`
         } else{
             document.getElementById(`toDoListTable`).innerHTML += `
-            <td data-testid="toDoItem">${item.text}</td>
-            <td onClick="toggleCompleted('incomplete', ${item.id})"class="incomplete">Incomplete</td>
-            <td><button onClick="deleteItemToDo(${item.id})">Delete</button></td>`
+            <tr data-testid="toDoItem" class="incomplete">
+            <td>${item.text}
+            <button data-testid="completeButton" onClick="toggleCompleted('incomplete', ${item.id})">Incomplete</button>
+            <button data-testid="deleteButton" onClick="deleteItemToDo(${item.id})">Delete</button></td>
+            </tr>`
         }
         }
     }).catch((error) => {

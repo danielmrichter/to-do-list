@@ -14,8 +14,8 @@
   </header>
   <form onSubmit="postToDoForm(event)">
     <label for="toDoFormText">Add a To-Do Item!</label>
-    <input type="text" id="toDoFormText" placeholder="To-Do Item">
-    <button>Submit</button>
+    <input data-testid="toDoTextInput" type="text" id="toDoFormText" placeholder="To-Do Item">
+    <button data-testid="submitButton">Submit</button>
   </form>
   <table>
     <thead>
