@@ -14,17 +14,17 @@ function getItemsToDo() {
         for (let item of response.data) {
             if(item.isComplete){
             document.getElementById(`toDoListTable`).innerHTML += `
-            <tr data-testid="toDoItem" class="completed">
-            <td>${item.text}
-            <button data-testid="completeButton" onClick="toggleCompleted('complete', ${item.id})">Completed!</button>
-            <button data-testid="deleteButton" onClick="deleteItemToDo(${item.id})">Delete</button></td>
+            <tr data-testid="toDoItem" class="completed container">
+            <td>${item.text}</td>
+            <td class="buttonColumn"><button data-testid="completeButton" class="btn btn-primary" onClick="toggleCompleted('complete', ${item.id})">Completed!</button>
+            <button data-testid="deleteButton" class="btn btn-danger" onClick="deleteItemToDo(${item.id})">Delete</button></td>
             </tr>`
         } else{
             document.getElementById(`toDoListTable`).innerHTML += `
-            <tr data-testid="toDoItem" class="incomplete">
-            <td>${item.text}
-            <button data-testid="completeButton" onClick="toggleCompleted('incomplete', ${item.id})">Incomplete</button>
-            <button data-testid="deleteButton" onClick="deleteItemToDo(${item.id})">Delete</button></td>
+            <tr data-testid="toDoItem" class="incomplete container">
+            <td>${item.text}</td>
+            <td class="buttonColumn"><button data-testid="completeButton" class="btn btn-primary" onClick="toggleCompleted('incomplete', ${item.id})">Incomplete</button>
+            <button data-testid="deleteButton" class="btn btn-danger" onClick="deleteItemToDo(${item.id})">Delete</button></td>
             </tr>`
         }
         }

@@ -2,8 +2,7 @@ const router = require('express').Router();
 const pool = require('../modules/pool');
 
 router.get(`/`, (req, res) =>{
-    const sqlText = `SELECT * FROM "todos"
-     ORDER BY "id";
+    const sqlText = `SELECT * FROM "todos";
     `
     pool.query(sqlText)
     .then((dbResponse) =>{

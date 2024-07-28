@@ -9,3 +9,17 @@ body{
     background-color: lavenderblush;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
+table{
+    border-spacing: 5px;
+    border-collapse: separate;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.buttonColumn{
+    background-color: lavenderblush;
+}
+h1, form{
+    text-align: center;
+}
