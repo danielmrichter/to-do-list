@@ -2,8 +2,8 @@ const router = require('express').Router();
 const pool = require('../modules/pool');
 
 router.get(`/`, (req, res) =>{
-    const sqlText = `SELECT * FROM "todos";
-    `
+    const sqlText = `SELECT * FROM "todos"
+ORDER BY "id"; `
     pool.query(sqlText)
     .then((dbResponse) =>{
         res.send(dbResponse.rows)
@@ -13,11 +13,12 @@ router.get(`/`, (req, res) =>{
     })
 })
 router.post(`/`, (req, res) =>{
+  console.log(`Current date is: `, req.body.date)
     const sqlText = `INSERT INTO "todos"
-  ("text")
+  ("text", "date")
   VALUES 
-  ($1);`
-  const sqlValues = [req.body.text]
+  ($1, $2);`
+  const sqlValues = [req.body.text, req.body.date]
   pool.query(sqlText, sqlValues)
   .then((dbResponse) =>{
     res.sendStatus(201)
@@ -31,9 +32,9 @@ router.patch(`/`, (req, res) => {
 	  SET "isComplete" = $1
 	  WHERE "id" = $2;`
   let newStatus
-  if(req.body.status === `incomplete`){
+  if(req.body.status === `Incomplete`){
     newStatus = true
-  } else if (req.body.status === `complete`){
+  } else if (req.body.status === `Completed!`){
     newStatus = false
   }
   const sqlValues = [newStatus, req.body.itemId]
@@ -57,4 +58,19 @@ router.delete(`/:itemId`, (req, res) =>{
     res.sendStatus(500)
   })
 })
+router.put(`/:itemId`, (req, res) =>{
+  const sqlText = `UPDATE "todos"
+    SET "text" = $1
+    WHERE "id" = $2;`
+  const sqlValues = [req.body.changedItem, req.params.itemId]
+  pool.query(sqlText, sqlValues)
+    .then((dbResponse) => {
+      res.sendStatus(200)
+    }).catch((dbErr) =>{
+      console.log(`Your SQL Query in PUT/todos/:itemId is a SQUEEKQL Query! `, dbErr)
+      res.sendStatus(500)
+    })
+})
+
+
 module.exports = router;
